@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: Gestión Estratégica de Compras</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-blue: #2c5282;
+            --secondary-blue: #3b82f6;
+            --strategic-green: #16a34a;
+            --dynamic-orange: #f97316;
+            --neutral-gray: #6b7280;
+            --light-gray: #f3f4f6;
+            --dark-text: #1f2937;
+            --white: #ffffff;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            color: var(--dark-text);
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .infographic-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            color: var(--white);
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><circle cx="20" cy="20" r="5" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="80" r="8" fill="rgba(255,255,255,0.1)"/><circle cx="50" cy="30" r="3" fill="rgba(255,255,255,0.15)"/><circle cx="30" cy="70" r="6" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: 40px 40px;
+        }
+        
+        .main-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            position: relative;
+            line-height: 1.2;
+        }
+        
+        .subtitle {
+            font-size: 1.4rem;
+            font-weight: 300;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .section {
+            padding: 30px;
+            border-bottom: 1px solid var(--light-gray);
+            position: relative;
+        }
+        
+        .section:last-child {
+            border-bottom: none;
+        }
+        
+        .section-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8rem;
+            color: var(--primary-blue);
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: var(--dynamic-orange);
+            border-radius: 2px;
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .card {
+            background: var(--white);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            border: 1px solid var(--light-gray);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+        }
+        
+        .card-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.4rem;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card-title i {
+            color: var(--dynamic-orange);
+            font-size: 1.2rem;
+        }
+        
+        .process-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .process-stage {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 15px;
+            background: var(--light-gray);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .process-stage:hover {
+            background: rgba(44, 82, 130, 0.1);
+            transform: translateX(5px);
+        }
+        
+        .stage-number {
+            min-width: 36px;
+            height: 36px;
+            background: var(--primary-blue);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .stage-content {
+            flex: 1;
+        }
+        
+        .stage-title {
+            font-weight: 600;
+            color: var(--primary-blue);
+            margin-bottom: 5px;
+        }
+        
+        .stage-icon {
+            font-size: 1.8rem;
+            color: var(--dynamic-orange);
+        }
+        
+        .chart-container {
+            height: 300px;
+            margin: 20px 0;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .matrix-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+        
+        .matrix-table th, .matrix-table td {
+            padding: 12px 15px;
+            text-align: center;
+            border: 1px solid var(--light-gray);
+        }
+        
+        .matrix-table th {
+            background: var(--primary-blue);
+            color: white;
+            font-weight: 600;
+        }
+        
+        .matrix-table tr:nth-child(even) {
+            background: rgba(44, 82, 130, 0.05);
+        }
+        
+        .star-rating {
+            color: var(--dynamic-orange);
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+        }
+        
+        .cycle-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 25px 0;
+        }
+        
+        .cycle-stages {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .cycle-stage {
+            background: var(--light-gray);
+            padding: 12px 15px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-align: center;
+            min-width: 180px;
+            transition: all 0.3s ease;
+        }
+        
+        .cycle-stage:hover {
+            background: var(--primary-blue);
+            color: white;
+        }
+        
+        .quadrants {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .quadrant {
+            background: var(--light-gray);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--dynamic-orange);
+        }
+        
+        .quadrant:hover {
+            transform: scale(1.03);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .quadrant-title {
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .global-map {
+            background: linear-gradient(135deg, #e0f2fe 0%, #dbeafe 100%);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            margin: 25px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .map-icon {
+            font-size: 4rem;
+            color: var(--primary-blue);
+            margin-bottom: 20px;
+        }
+        
+        .map-elements {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .map-element {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            /* Ajuste para evitar que el texto se salga del cuadrado */
+            word-wrap: break-word;
+            overflow: hidden;
+        }
+        
+        .element-icon {
+            font-size: 1.8rem;
+            color: var(--dynamic-orange);
+            margin-bottom: 8px;
+        }
+        
+        .digital-evolution {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .evolution-stage {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 15px;
+            background: var(--light-gray);
+            border-radius: 10px;
+            position: relative;
+        }
+        
+        .evolution-stage::before {
+            content: "";
+            position: absolute;
+            left: 30px;
+            top: -20px;
+            bottom: -20px;
+            width: 2px;
+            background: var(--primary-blue);
+        }
+        
+        .evolution-stage:first-child::before {
+            top: 50%;
+        }
+        
+        .evolution-stage:last-child::before {
+            bottom: 50%;
+        }
+        
+        .evolution-number {
+            min-width: 30px;
+            height: 30px;
+            background: var(--primary-blue);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-family: 'Montserrat', sans-serif;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .benefits-chart {
+            height: 350px;
+            margin: 30px 0;
+        }
+        
+        .explanatory-text {
+            background: rgba(25, 118, 210, 0.08);
+            border-left: 4px solid var(--primary-blue);
+            padding: 15px 20px;
+            border-radius: 0 8px 8px 0;
+            margin: 20px 0;
+            font-style: italic;
+            font-size: 0.95rem;
+        }
+        
+        .credits {
+            background: var(--dark-text);
+            color: var(--white);
+            padding: 30px;
+            text-align: center;
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+        
+        .author-name {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--secondary-blue);
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .footer-text {
+            max-width: 800px;
+            margin: 0 auto;
+            color: rgba(255, 255, 255, 0.85);
+        }
+        
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .main-title {
+                font-size: 2.2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            .quadrants {
+                grid-template-columns: 1fr;
+            }
+            
+            .chart-container {
+                height: 250px;
+            }
+            
+            .benefits-chart {
+                height: 300px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .main-title {
+                font-size: 1.8rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+                padding: 0 10px;
+            }
+            
+            .header, .section, .credits {
+                padding: 20px 15px;
+            }
+            
+            .card {
+                padding: 20px 15px;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .card-title {
+                font-size: 1.2rem;
+            }
+            
+            .benefits-chart {
+                height: 250px;
+            }
+            
+            .chart-container {
+                height: 200px;
+            }
+            
+            .map-elements {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .print-instructions {
+            background: #fff8e1;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+            border: 1px solid #ffd54f;
+            font-size: 0.9rem;
+        }
+        
+        .highlight {
+            color: var(--dynamic-orange);
+            font-weight: 600;
+        }
+        
+        .strategic-highlight {
+            color: var(--strategic-green);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="infographic-container">
+        <div class="header">
+            <h1 class="main-title">Gestión Estratégica de Compras: <span class="highlight">Del Proveedor al e-Procurement</span></h1>
+            <p class="subtitle">Transformando procesos de adquisición en ventaja competitiva para cadenas de suministro resilientes</p>
+        </div>
+        
+        <div class="print-instructions">
+            <i class="fas fa-print"></i> <strong>Instrucciones para impresión:</strong> Use las opciones de impresión de su navegador (Ctrl+P) y seleccione "Guardar como PDF" para obtener una copia en formato .JPG/.PDF
+        </div>
+        
+        <div class="section">
+            <h2 class="section-title">Sección 1: El Proceso Integral de Compras</h2>
+            
+            <div class="content-grid">
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-sitemap"></i> Diagrama de Flujo del Proceso de Compras</h3>
+                    <div class="process-flow">
+                        <div class="process-stage">
+                            <div class="stage-number">1</div>
+                            <div class="stage-icon"><i class="fas fa-list-check"></i></div>
+                            <div class="stage-content">
+                                <div class="stage-title">Identificación de necesidades</div>
+                            </div>
+                        </div>
+                        <div class="process-stage">
+                            <div class="stage-number">2</div>
+                            <div class="stage-icon"><i class="fas fa-users"></i></div>
+                            <div class="stage-content">
+                                <div class="stage-title">Evaluación y selección del proveedor</div>
+                            </div>
+                        </div>
+                        <div class="process-stage">
+                            <div class="stage-number">3</div>
+                            <div class="stage-icon"><i class="fas fa-handshake"></i></div>
+                            <div class="stage-content">
+                                <div class="stage-title">Negociación y formalización</div>
+                            </div>
+                        </div>
+                        <div class="process-stage">
+                            <div class="stage-number">4</div>
+                            <div class="stage-icon"><i class="fas fa-truck"></i></div>
+                            <div class="stage-content">
+                                <div class="stage-title">Seguimiento del pedido</div>
+                            </div>
+                        </div>
+                        <div class="process-stage">
+                            <div class="stage-number">5</div>
+                            <div class="stage-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+                            <div class="stage-content">
+                                <div class="stage-title">Verificación y pago</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="explanatory-text">
+                        El proceso de compras estratégicas comprende cinco etapas fundamentales que deben integrarse de manera fluida para garantizar la eficiencia. La identificación precisa de necesidades establece la base para decisiones informadas; la evaluación rigurosa de proveedores asegura calidad y confiabilidad; la negociación estratégica maximiza el valor; el seguimiento continuo garantiza cumplimiento; y la verificación meticulosa asegura que los pagos correspondan a lo acordado.
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-chart-pie"></i> Clasificación de Requerimientos de Compras</h3>
+                    <div class="chart-container">
+                        <canvas id="abcChart"></canvas>
+                    </div>
+                    <div style="text-align: center; margin-top: -20px;">
+                        <div style="display: inline-block; background: var(--light-gray); padding: 8px 15px; border-radius: 20px; margin: 5px;">
+                            <span style="display: inline-block; width: 15px; height: 15px; background: #ef4444; border-radius: 3px; margin-right: 8px;"></span>
+                            <strong>Categoría A (20%)</strong>: 80% del valor total
+                        </div>
+                        <div style="display: inline-block; background: var(--light-gray); padding: 8px 15px; border-radius: 20px; margin: 5px;">
+                            <span style="display: inline-block; width: 15px; height: 15px; background: #f59e0b; border-radius: 3px; margin-right: 8px;"></span>
+                            <strong>Categoría B (30%)</strong>: 15% del valor total
+                        </div>
+                        <div style="display: inline-block; background: var(--light-gray); padding: 8px 15px; border-radius: 20px; margin: 5px;">
+                            <span style="display: inline-block; width: 15px; height: 15px; background: #10b981; border-radius: 3px; margin-right: 8px;"></span>
+                            <strong>Categoría C (50%)</strong>: 5% del valor total
+                        </div>
+                    </div>
+                    <div class="explanatory-text">
+                        La clasificación ABC permite priorizar esfuerzos en los requerimientos de mayor impacto. Los elementos de Categoría A requieren gestión intensiva y relaciones estratégicas con proveedores, mientras que los de Categoría C pueden gestionarse mediante procesos estandarizados y automatizados.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2 class="section-title">Sección 2: Selección y Evaluación de Proveedores</h2>
+            
+            <div class="content-grid">
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-star"></i> Matriz de Evaluación de Proveedores</h3>
+                    <div class="matrix-container">
+                        <table class="matrix-table">
+                            <thead>
+                                <tr>
+                                    <th>Criterio</th>
+                                    <th>Excelente (5)</th>
+                                    <th>Bueno (4)</th>
+                                    <th>Regular (3)</th>
+                                    <th>Deficiente (2)</th>
+                                    <th>Malo (1)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Calidad</strong></td>
+                                    <td class="star-rating">★★★★★</td>
+                                    <td class="star-rating">★★★★</td>
+                                    <td class="star-rating">★★★</td>
+                                    <td class="star-rating">★★</td>
+                                    <td class="star-rating">★</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Puntualidad</strong></td>
+                                    <td class="star-rating">★★★★</td>
+                                    <td class="star-rating">★★★★</td>
+                                    <td class="star-rating">★★★</td>
+                                    <td class="star-rating">★★</td>
+                                    <td class="star-rating">★</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Precio</strong></td>
+                                    <td class="star-rating">★★★</td>
+                                    <td class="star-rating">★★★★</td>
+                                    <td class="star-rating">★★★</td>
+                                    <td class="star-rating">★★</td>
+                                    <td class="star-rating">★</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Servicio</strong></td>
+                                    <td class="star-rating">★★★★★</td>
+                                    <td class="star-rating">★★★★</td>
+                                    <td class="star-rating">★★</td>
+                                    <td class="star-rating">★</td>
+                                    <td class="star-rating">★</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Innovación</strong></td>
+                                    <td class="star-rating">★★</td>
+                                    <td class="star-rating">★★★</td>
+                                    <td class="star-rating">★★</td>
+                                    <td class="star-rating">★</td>
+                                    <td class="star-rating">★</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="explanatory-text">
+                        La selección estratégica de proveedores requiere una evaluación multidimensional que vaya más allá del precio. Los criterios de calidad, puntualidad, servicio y capacidad de innovación son esenciales para establecer relaciones sostenibles que aporten valor a largo plazo.
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-sync-alt"></i> Sistema de Gestión de Desempeño</h3>
+                    <div class="cycle-diagram">
+                        <div style="font-size: 3rem; margin: 20px; color: var(--primary-blue);"><i class="fas fa-redo"></i></div>
+                        <div class="cycle-stages">
+                            <div class="cycle-stage">1. Establecimiento de KPIs claros</div>
+                            <div class="cycle-stage">2. Monitoreo continuo de desempeño</div>
+                            <div class="cycle-stage">3. Evaluación periódica con retroalimentación</div>
+                            <div class="cycle-stage">4. Planes de mejora conjuntos</div>
+                            <div class="cycle-stage">5. Reconocimiento a proveedores destacados</div>
+                        </div>
+                    </div>
+                    <div class="explanatory-text">
+                        Un sistema efectivo de gestión de desempeño de proveedores implica no solo medir indicadores clave, sino también establecer un ciclo continuo de mejora mediante retroalimentación constructiva y planes conjuntos de acción. Este enfoque proactivo reduce riesgos y fomenta la colaboración estratégica.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2 class="section-title">Sección 3: Negociación Estratégica y Comercio Exterior</h2>
+            
+            <div class="content-grid">
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-handshake"></i> Estrategias de Negociación Efectiva</h3>
+                    <div class="quadrants">
+                        <div class="quadrant">
+                            <div class="quadrant-title">Ganar-Ganar</div>
+                            <i class="fas fa-balance-scale" style="font-size: 2rem; color: var(--strategic-green); margin-bottom: 10px;"></i>
+                            <p>Colaboración para maximizar valor mutuo</p>
+                        </div>
+                        <div class="quadrant">
+                            <div class="quadrant-title">Concesiones Inteligentes</div>
+                            <i class="fas fa-exchange-alt" style="font-size: 2rem; color: var(--dynamic-orange); margin-bottom: 10px;"></i>
+                            <p>Intercambiar concesiones de diferente valor percibido</p>
+                        </div>
+                        <div class="quadrant">
+                            <div class="quadrant-title">Análisis de BATNA</div>
+                            <i class="fas fa-search" style="font-size: 2rem; color: var(--primary-blue); margin-bottom: 10px;"></i>
+                            <p>Conocer la mejor alternativa a un acuerdo negociado</p>
+                        </div>
+                        <div class="quadrant">
+                            <div class="quadrant-title">Creación de Valor</div>
+                            <i class="fas fa-chart-line" style="font-size: 2rem; color: var(--strategic-green); margin-bottom: 10px;"></i>
+                            <p>Identificar intereses subyacentes para ampliar el "pastel"</p>
+                        </div>
+                    </div>
+                    <div class="explanatory-text">
+                        La negociación estratégica en compras va más allá de obtener el menor precio; busca crear valor mutuo mediante el entendimiento de intereses subyacentes, el análisis de alternativas y la construcción de acuerdos sostenibles que fortalezcan la relación con el proveedor.
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-globe-americas"></i> Elementos Clave del Comercio Exterior</h3>
+                    <div class="global-map">
+                        <div class="map-icon">
+                            <i class="fas fa-earth-americas"></i>
+                        </div>
+                        <h4 style="color: var(--primary-blue); margin-bottom: 15px;">Comercio Internacional</h4>
+                        <div class="map-elements">
+                            <div class="map-element">
+                                <div class="element-icon"><i class="fas fa-file-contract"></i></div>
+                                <div><strong>INCOTERMS</strong></div>
+                                <div>FOB, CIF, DDP</div>
+                            </div>
+                            <div class="map-element">
+                                <div class="element-icon"><i class="fas fa-file-alt"></i></div>
+                                <div><strong>Documentación</strong></div>
+                                <div>Factura, empaque, origen</div>
+                            </div>
+                            <div class="map-element">
+                                <div class="element-icon"><i class="fas fa-ship"></i></div>
+                                <div><strong>Logística</strong></div>
+                                <div>Marítimo, aéreo, terrestre</div>
+                            </div>
+                            <div class="map-element">
+                                <div class="element-icon"><i class="fas fa-gavel"></i></div>
+                                <div><strong>Arancel</strong></div>
+                                <div>Normas de importación/exportación</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="explanatory-text">
+                        El comercio exterior requiere comprender y gestionar múltiples elementos interrelacionados, desde los términos de entrega (INCOTERMS) hasta la documentación específica y las regulaciones aduaneras. La coordinación efectiva entre estos elementos es esencial para minimizar riesgos y costos en operaciones internacionales.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2 class="section-title">Sección 4: Evolución hacia el e-Procurement</h2>
+            
+            <div class="content-grid">
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-chart-line"></i> Etapas de Digitalización en Compras</h3>
+                    <div class="digital-evolution">
+                        <div class="evolution-stage">
+                            <div class="evolution-number">1</div>
+                            <div class="stage-icon"><i class="fas fa-file"></i></div>
+                            <div class="stage-content">
+                                <div class="stage-title">Manual</div>
+                                <p>Procesos en papel, sin integración</p>
+                            </div>
+                        </div>
+                        <div class="evolution-stage">
+                            <div class="evolution-number">2</div>
+                            <div class="stage-icon"><i class="fas fa-envelope"></i></div>
+                            <div class="stage-content">
+                                <div class="stage-title">Básico</div>
+                                <p>Uso de email y hojas de cálculo</p>
+                            </div>
+                        </div>
+                        <div class="evolution-stage">
+                            <div class="evolution-number">3</div>
+                            <div class="stage-icon"><i class="fas fa-laptop"></i></div>
+                            <div class="stage-content">
+                                <div class="stage-title">Semi-automatizado</div>
+                                <p>Sistemas de pedido electrónico</p>
+                            </div>
+                        </div>
+                        <div class="evolution-stage">
+                            <div class="evolution-number">4</div>
+                            <div class="stage-icon"><i class="fas fa-network-wired"></i></div>
+                            <div class="stage-content">
+                                <div class="stage-title">Integrado</div>
+                                <p>Plataformas de e-procurement con ERP</p>
+                            </div>
+                        </div>
+                        <div class="evolution-stage">
+                            <div class="evolution-number">5</div>
+                            <div class="stage-icon"><i class="fas fa-brain"></i></div>
+                            <div class="stage-content">
+                                <div class="stage-title">Inteligente</div>
+                                <p>IA para análisis predictivo y automatización avanzada</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="explanatory-text">
+                        La evolución hacia el e-procurement representa una transformación significativa en la gestión de compras, pasando de procesos manuales a sistemas inteligentes que utilizan inteligencia artificial para optimizar decisiones, predecir necesidades y automatizar tareas repetitivas, liberando tiempo para actividades estratégicas.
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3 class="card-title"><i class="fas fa-chart-bar"></i> Beneficios del e-Procurement</h3>
+                    <div class="benefits-chart">
+                        <canvas id="benefitsChart"></canvas>
+                    </div>
+                    <div class="explanatory-text">
+                        La implementación de sistemas de e-procurement genera beneficios cuantificables en eficiencia, transparencia y cumplimiento. Estos sistemas no solo automatizan procesos, sino que también proporcionan datos valiosos para la toma de decisiones estratégicas y la mejora continua de la función de compras.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="credits">
+            <span class="author-name">Kellys Yohana Royet Reales</span>
+            <div class="footer-text">
+                SENA. Coordinación de Procesos Logísticos | Ficha: 3185903<br>
+                Evidencia GA3-210101071-AA1-EV01. Infografía sobre conceptos de compras, proveedores, negociación, importación, exportación, e-procurement<br>
+                Fuente: SENA. Coordinación de Procesos Logísticos. Guía de Aprendizaje 3
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ABC Chart
+        const abcCtx = document.getElementById('abcChart').getContext('2d');
+        const abcChart = new Chart(abcCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Categoría A (20%)', 'Categoría B (30%)', 'Categoría C (50%)'],
+                datasets: [{
+                    data: [20, 30, 50],
+                    backgroundColor: [
+                        '#ef4444', // Red for Category A
+                        '#f59e0b', // Orange for Category B  
+                        '#10b981'  // Green for Category C
+                    ],
+                    borderWidth: 0,
+                    hoverOffset: 15
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.label || '';
+                                if (label.includes('A')) return 'Categoría A: 20% de items, 80% valor';
+                                if (label.includes('B')) return 'Categoría B: 30% de items, 15% valor';
+                                if (label.includes('C')) return 'Categoría C: 50% de items, 5% valor';
+                                return label;
+                            }
+                        }
+                    }
+                },
+                cutout: '60%'
+            }
+        });
+        
+        // Benefits Chart
+        const benefitsCtx = document.getElementById('benefitsChart').getContext('2d');
+        const benefitsChart = new Chart(benefitsCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Reducción de costos', 'Ahorro de tiempo', 'Transparencia', 'Cumplimiento', 'Satisfacción'],
+                datasets: [{
+                    label: 'Porcentaje de mejora',
+                    data: [20, 60, 100, 95, 80],
+                    backgroundColor: [
+                        'rgba(239, 68, 68, 0.8)',
+                        'rgba(245, 158, 11, 0.8)',
+                        'rgba(16, 185, 129, 0.8)',
+                        'rgba(59, 130, 246, 0.8)',
+                        'rgba(139, 92, 246, 0.8)'
+                    ],
+                    borderColor: [
+                        'rgba(239, 68, 68, 1)',
+                        'rgba(245, 158, 11, 1)',
+                        'rgba(16, 185, 129, 1)',
+                        'rgba(59, 130, 246, 1)',
+                        'rgba(139, 92, 246, 1)'
+                    ],
+                    borderWidth: 1,
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                let label = context.dataset.label || '';
+                                let value = context.parsed.y;
+                                let benefit = '';
+                                
+                                if (context.label.includes('costos')) benefit = '15-25% en costos de transacción';
+                                if (context.label.includes('tiempo')) benefit = '50-70% en procesamiento de órdenes';
+                                if (context.label.includes('Transparencia')) benefit = '100% de trazabilidad en el proceso';
+                                if (context.label.includes('Cumplimiento')) benefit = '95% de adherencia a políticas';
+                                if (context.label.includes('Satisfacción')) benefit = '80% de mejora en experiencia de usuario';
+                                
+                                return `${value}% - ${benefit}`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 110,
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        },
+                        ticks: {
+                            callback: function(value) {
+                                return value + '%';
+                            }
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                },
+                animation: {
+                    duration: 2000,
+                    easing: 'easeOutQuart'
+                }
+            }
+        });
+        
+        // Add animation to elements on scroll
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 300 + (index * 200));
+            });
+        });
+    </script>
+</body>
+</html>
